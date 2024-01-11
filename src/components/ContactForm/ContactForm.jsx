@@ -1,7 +1,10 @@
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { pushToArray } from '../../redux/contactsSlice';
 
 const ContactForm = ({ newContact }) => {
+  const dispatch = useDispatch();
   const [userData, setuserData] = useState({
     name: '',
     number: '',
@@ -15,11 +18,13 @@ const ContactForm = ({ newContact }) => {
   };
 
   const handleClick = e => {
-    newContact({
-      id: nanoid(),
-      name: userData.name,
-      number: userData.number,
-    });
+    dispatch(
+      pushToArray({
+        id: nanoid(),
+        name: userData.name,
+        number: userData.number,
+      })
+    );
 
     setuserData({
       name: '',

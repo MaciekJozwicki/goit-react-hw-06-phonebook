@@ -5,37 +5,14 @@ import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 
 const App = () => {
-  const [contacts, setContacts] = useState([]);
-  const [isRender, setisRender] = useState(false);
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('person'));
-    console.log(data);
-    if (data === null) {
-      setContacts([]);
-    }
-    setContacts(data);
-  }, []);
-
-  const handleAddContact = newContact => {
-    let array = contacts;
-    array = array === null ? [] : array;
-
-    array.push(newContact);
-    setContacts(array);
-    localStorage.removeItem('person');
-    localStorage.setItem('person', JSON.stringify(array));
-
-    setisRender(!isRender);
-  };
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm newContact={handleAddContact} />
+      <ContactForm />
 
       <h2>Contacts</h2>
       <Filter />
-      <ContactList contacts={contacts} />
+      <ContactList />
     </div>
   );
 };
