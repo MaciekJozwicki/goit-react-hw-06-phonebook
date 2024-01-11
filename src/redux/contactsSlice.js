@@ -9,7 +9,7 @@ export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
-    pushToArray: (state, action) => {
+    addContact: (state, action) => {
       state.contacts.push(action.payload);
     },
     removeFromArray: (state, action) => {
@@ -28,7 +28,7 @@ export const contactsSlice = createSlice({
   },
 });
 
-export const { pushToArray, removeFromArray, setFilter, filteredContacts } =
+export const { addContact, removeFromArray, setFilter, filteredContacts } =
   contactsSlice.actions;
 
 export default contactsSlice.reducer;

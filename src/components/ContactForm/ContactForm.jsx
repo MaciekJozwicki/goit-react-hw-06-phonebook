@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { pushToArray } from '../../redux/contactsSlice';
+import { addContact } from '../../redux/contactsSlice';
 
 const ContactForm = ({ newContact }) => {
   const dispatch = useDispatch();
@@ -17,9 +17,10 @@ const ContactForm = ({ newContact }) => {
     }));
   };
 
-  const handleClick = e => {
+  const handleSubmit = e => {
+    e.preventDefault();
     dispatch(
-      pushToArray({
+      addContact({
         id: nanoid(),
         name: userData.name,
         number: userData.number,
@@ -34,31 +35,31 @@ const ContactForm = ({ newContact }) => {
 
   return (
     <>
-      <label className="formEl__label">Name</label>
-      <input
-        onChange={handleInput}
-        value={userData.name}
-        className="formEl__input"
-        type="text"
-        name="name"
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        required
-      />
-      <label className="formEl__label">Number</label>
-      <input
-        onChange={handleInput}
-        value={userData.number}
-        className="formEl__input"
-        type="tel"
-        name="number"
-        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        required
-      />
-      <button onClick={handleClick} className="formEl__button">
-        Add contact
-      </button>
+      <form onSubmit={handleSubmit} className="formEl__form">
+        <label className="formEl__label">Name</label>
+        <input
+          onChange={handleInput}
+          value={userData.name}
+          className="formEl__input"
+          type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+        />
+        <label className="formEl__label">Number</label>
+        <input
+          onChange={handleInput}
+          value={userData.number}
+          className="formEl__input"
+          type="tel"
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+        />
+        <button className="formEl__button">Add contact</button>
+      </form>
     </>
   );
 };
